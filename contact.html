@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk — ThinkingHead | Start a Discovery Conversation</title>
   <meta name="description" content="Tell us the challenge. We’ll tell you what we’d do differently and what we’d do first." />
+  <link rel="canonical" href="https://www.thinkinghead.ng/contact" />
+
+  <!-- Favicon — placeholder mark; swap favicon.svg for the real logo once available -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Open Graph (Facebook, LinkedIn, WhatsApp link previews) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ThinkingHead" />
+  <meta property="og:title" content="Let’s Talk — ThinkingHead | Start a Discovery Conversation" />
+  <meta property="og:description" content="Tell us the challenge. We’ll tell you what we’d do differently and what we’d do first." />
+  <meta property="og:url" content="https://www.thinkinghead.ng/contact" />
+  <meta property="og:image" content="https://www.thinkinghead.ng/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter/X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Let’s Talk — ThinkingHead | Start a Discovery Conversation" />
+  <meta name="twitter:description" content="Tell us the challenge. We’ll tell you what we’d do differently and what we’d do first." />
+  <meta name="twitter:image" content="https://www.thinkinghead.ng/images/og-image.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -102,12 +122,24 @@
 
     <section class="section">
       <div class="contact-layout">
-        <form class="fade-in" novalidate>
-          <!-- Honeypot field — hidden from real users via CSS, catches bots.
-               Per FR-01: no CAPTCHA, honeypot + rate limiting instead. -->
+        <!--
+          FORM SETUP — replace YOUR_FORM_ID below with your real Formspree
+          endpoint (sign up free at https://formspree.io, create a form,
+          copy the ID). See README.md "Wiring the contact form".
+        -->
+        <form
+          id="contact-form"
+          class="fade-in"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          novalidate
+        >
+          <!-- Honeypot field — "_gotcha" is Formspree's own honeypot
+               convention: bots that fill it in are silently discarded
+               server-side, no code needed. Per FR-01: no CAPTCHA. -->
           <div style="position:absolute; left:-9999px;" aria-hidden="true">
-            <label for="website">Leave this field empty</label>
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+            <label for="_gotcha">Leave this field empty</label>
+            <input type="text" id="_gotcha" name="_gotcha" tabindex="-1" autocomplete="off" />
           </div>
 
           <div class="form-field">
@@ -135,11 +167,10 @@
             <textarea id="challenge" name="challenge" required></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary full-width">Start a conversation</button>
-          <p class="form-note">
-            This form isn&rsquo;t wired to a backend yet — that&rsquo;s a separate piece of work (email +
-            WhatsApp notification, per the BRD&rsquo;s FR-01). Right now submitting reloads the page.
-          </p>
+          <button type="submit" class="btn btn-primary full-width" id="contact-submit">
+            Start a conversation
+          </button>
+          <p class="form-note" id="contact-status" role="status" aria-live="polite"></p>
         </form>
 
         <aside class="info-panel fade-in">

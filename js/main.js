@@ -52,6 +52,57 @@ if ("IntersectionObserver" in window && fadeEls.length) {
 }
 
 // ==========================================================================
+// Contact form — submits to Formspree via fetch, no page reload.
+// Falls back to a normal HTML form POST (still works, just leaves the page)
+// if fetch fails for any reason — nothing breaks if JS doesn't run at all.
+// ==========================================================================
+const contactForm = document.querySelector("#contact-form");
+
+if (contactForm) {
+  const submitBtn = document.querySelector("#contact-submit");
+  const statusEl = document.querySelector("#contact-status");
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    statusEl.textContent = "";
+    statusEl.style.color = "";
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        contactForm.reset();
+        statusEl.textContent =
+          "Thanks — your message is on its way. We'll be in touch shortly.";
+        statusEl.style.color = "var(--teal)";
+      } else {
+        const data = await response.json().catch(() => null);
+        const detail =
+          data?.errors?.map((e) => e.message).join(", ") ||
+          "Something went wrong sending that. Please try again, or email hello@thinkinghead.ng directly.";
+        statusEl.textContent = detail;
+        statusEl.style.color = "#b3261e";
+      }
+    } catch (err) {
+      statusEl.textContent =
+        "Couldn't reach the server. Check your connection, or email hello@thinkinghead.ng directly.";
+      statusEl.style.color = "#b3261e";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Start a conversation";
+    }
+  });
+}
+
+// ==========================================================================
 // Footer year
 // ==========================================================================
 const yearEl = document.querySelector("[data-year]");

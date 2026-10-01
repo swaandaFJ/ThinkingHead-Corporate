@@ -60,6 +60,39 @@ Every page maps to one of four things the site is built to make visible:
 If a piece of content on the site doesn't serve one of these, it doesn't
 belong.
 
+## URLs, domain, and clean paths — please confirm before launch
+
+Every canonical/OG URL, the sitemap, and `robots.txt` assume:
+
+- **Production domain**: `https://www.thinkinghead.ng` — this is a
+  placeholder based on the `hello@thinkinghead.ng` email address already
+  in the footer. Confirm the real domain before launch and replace every
+  occurrence (search for `thinkinghead.ng` across the project — it's the
+  `SITE_URL` constant in `/build/gen.py` if you're regenerating pages,
+  otherwise find-and-replace directly in the HTML/XML/txt files).
+- **Clean URLs** (`/about` instead of `/about.html`) — Netlify and Vercel
+  both do this automatically for a static folder like this one; GitHub
+  Pages does not. If you deploy anywhere that doesn't strip `.html`
+  automatically, either configure redirects on your host or add `.html`
+  back into the sitemap, `robots.txt`, and the canonical/OG tags.
+
+## Wiring the contact form
+
+The "Let's Talk" form submits to [Formspree](https://formspree.io) — a
+service that emails form submissions to an inbox, with no backend code to
+write or host. To activate it:
+
+1. Create a free account at formspree.io and add a new form.
+2. Formspree gives you an endpoint like `https://formspree.io/f/abc1234`.
+3. In `contact.html`, find the `<form>` tag and replace
+   `YOUR_FORM_ID` in its `action` attribute with your real ID.
+4. Confirm the notification email Formspree sends the first time someone
+   submits — until you confirm it, submissions won't be delivered.
+
+That's it — no server, no API key in the code, nothing else to deploy.
+The honeypot field (`_gotcha`) is Formspree's own spam convention, so bot
+submissions are discarded automatically on their end.
+
 ## Running it
 
 No install, no build step. Open `index.html` directly in a browser, or
