@@ -1,114 +1,117 @@
 # ThinkingHead — Corporate Website
 
-## What this is
+The public website for **ThinkingHead Nigeria Limited** (RC 8611016), an AI-powered research, strategy and
+digital transformation firm in Kaduna, Nigeria. It exists to do three things for a visitor:
 
-The public website for **ThinkingHead Nigeria Limited** (RC 8611016), an
-AI-powered research, strategy, and digital transformation firm
-headquartered in Kaduna, Nigeria. ThinkingHead partners with governments,
-enterprises, development organisations, and mission-led institutions to
-turn complex challenges into working systems — through research, systems
-thinking, artificial intelligence, and disciplined engineering.
+1. **Show that ThinkingHead thinks before it builds** — through its method, its work and its point of view.
+2. **Make starting a real conversation easy** — from the contact page, or straight from any service.
+3. **Establish credibility fast** — registration, leadership background and track record, in under a minute.
 
-The site exists to do three things for a visitor:
+**Audience:** executives and procurement teams at Nigerian enterprises, government agencies and development
+organisations; prospective hires and technical partners. Many visit on mid-range phones over 3G, so the site is
+built to be light and fast.
 
-1. **Prove ThinkingHead thinks before it builds** — through the depth of
-   its methodology, case studies, and point of view, not just a list of
-   services.
-2. **Make it easy to start a real conversation** — every page leads,
-   without friction, to a genuine discovery conversation rather than a
-   sales funnel.
-3. **Establish institutional credibility fast** — registration details,
-   leadership background, delivery track record, and partnership model
-   are all surfaced clearly, so a procurement officer or executive can
-   find what they need in under a minute.
-
-## Who it's for
-
-- **Executives and decision-makers** at Nigerian enterprises, government
-  agencies, and development organisations, evaluating whether
-  ThinkingHead is a credible partner for a transformation effort.
-- **Procurement and vendor-assessment teams** who need company
-  registration, capability statements, and track record on hand.
-- **Prospective hires and technical partners** assessing whether the
-  work and the culture are worth joining.
-
-## Pages
+## What it does
 
 | Page | Purpose |
 |---|---|
-| **Home** (`index.html`) | The opening statement — who ThinkingHead is, what it believes, and why it matters, in one pass through all four layers below. |
-| **About** (`about.html`) | ThinkingHead's worldview — how it thinks about systems, technology, AI, Africa, and accountability — plus vision, mission, and company registration. |
-| **Services** (`services.html`) | The eight service pillars, from research and strategy through to production systems, automation, and capability transfer. |
-| **Method** (`method.html`) | The eight-step delivery methodology every engagement runs through, from Discover to Scale. |
-| **Work** (`work.html`) | Signature projects and the industries ThinkingHead serves — the method, made real. |
-| **Leadership** (`leadership.html`) | The two founders, their backgrounds, and what each leads at ThinkingHead. |
-| **Let's Talk** (`contact.html`) | The path to a discovery conversation — contact details, office location, and an enquiry form. |
+| **Home** `/` | Who ThinkingHead is, what it believes, and why it matters. |
+| **About** `/about` | Worldview, vision, mission, registration, the eight differentiators. |
+| **Services** `/services` | The eight service pillars. **Every pillar has an "Ask about this service" button** that opens an enquiry form in a pop-up, so visitors never leave the page. The enquiry records which service it came from. |
+| **Method** `/method` | The eight-step delivery method, Discover to Scale. |
+| **Work** `/work` | Signature projects and industries served. |
+| **Leadership** `/leadership` | The two founders. |
+| **Let's Talk** `/contact` | Contact details, map and the discovery-conversation form. |
+| **Insights** `/insights` | Research, frameworks and perspectives (Markdown articles). Hidden until at least one article is published. |
+| **Corporate Profile** | The footer's "Download Corporate Profile" opens a short form (name, email, organisation), then offers the PDF. |
 
-Two pages aren't live yet — **Insights** (original research, frameworks,
-and perspectives) is waiting on real published content, and the gated
-**Corporate Profile** download is still to be built.
+Every page maps to one of four layers: what we **believe** → how we **think** → what we've **built** → what we **know**.
 
-## The four layers
+## Getting started
 
-Every page maps to one of four things the site is built to make visible:
+You need **Node.js 20.9 or newer** (Node 18 will not work).
 
-1. **What we believe** — worldview and principles (About)
-2. **How we think** — methodology and reasoning (Method)
-3. **What we've built** — case studies and outcomes (Work)
-4. **What we know** — original research and perspectives (Insights)
+```bash
+node -v                      # must print v20.9.0 or higher (v22 is fine)
+npm install                  # downloads dependencies (first time only)
+cp .env.example .env.local   # on Windows: copy .env.example .env.local
+npm run dev                  # then open http://localhost:3000
+```
 
-If a piece of content on the site doesn't serve one of these, it doesn't
-belong.
+If `node -v` is older or "not found", install the current LTS from nodejs.org first.
 
-## URLs, domain, and clean paths — please confirm before launch
+`.env.local` ships in **test mode** (`NEXT_PUBLIC_FORM_DRY_RUN=true`): forms show the success message and print what
+*would* have been sent in the browser console (press F12 → Console), but send nothing. Restart `npm run dev` after
+changing `.env.local`.
 
-Every canonical/OG URL, the sitemap, and `robots.txt` assume:
+Other commands: `npm run build` (production build) · `npm start` (serve it) · `npm run lint` (check code).
 
-- **Production domain**: `https://www.thinkinghead.ng` — this is a
-  placeholder based on the `hello@thinkinghead.ng` email address already
-  in the footer. Confirm the real domain before launch and replace every
-  occurrence (search for `thinkinghead.ng` across the project — it's the
-  `SITE_URL` constant in `/build/gen.py` if you're regenerating pages,
-  otherwise find-and-replace directly in the HTML/XML/txt files).
-- **Clean URLs** (`/about` instead of `/about.html`) — Netlify and Vercel
-  both do this automatically for a static folder like this one; GitHub
-  Pages does not. If you deploy anywhere that doesn't strip `.html`
-  automatically, either configure redirects on your host or add `.html`
-  back into the sitemap, `robots.txt`, and the canonical/OG tags.
+## Connecting the forms
 
-## Wiring the contact form
+Every form (service enquiry, contact, profile download) is sent by one file: `lib/submitForm.js`.
 
-The "Let's Talk" form submits to [Formspree](https://formspree.io) — a
-service that emails form submissions to an inbox, with no backend code to
-write or host. To activate it:
+1. Create a free account at [formspree.io](https://formspree.io), add a form, copy its endpoint
+   (looks like `https://formspree.io/f/abc1234`).
+2. Put it in `.env.local` as `NEXT_PUBLIC_FORM_ENDPOINT=...` and **remove** the `DRY_RUN` line.
+3. Confirm the notification email Formspree sends. Until you do, submissions are not delivered.
 
-1. Create a free account at formspree.io and add a new form.
-2. Formspree gives you an endpoint like `https://formspree.io/f/abc1234`.
-3. In `contact.html`, find the `<form>` tag and replace
-   `YOUR_FORM_ID` in its `action` attribute with your real ID.
-4. Confirm the notification email Formspree sends the first time someone
-   submits — until you confirm it, submissions won't be delivered.
+Each submission arrives by email with a subject such as *"Service enquiry: AI Strategy & Transformation"* and
+fields for `service` and `source`, so the team always knows where it came from.
+To switch form service later (or to a small serverless function), edit only `lib/submitForm.js`.
 
-That's it — no server, no API key in the code, nothing else to deploy.
-The honeypot field (`_gotcha`) is Formspree's own spam convention, so bot
-submissions are discarded automatically on their end.
+**Limits to know about**
+- Spam protection is a hidden honeypot field plus whatever the form service enforces. Rate limiting cannot be done
+  in the browser; it has to live on the service or a server function. Free plans have a monthly submission cap, so
+  check the service's current limits.
+- The WhatsApp notification in the BRD is **not** included; notification is by email. WhatsApp needs an automation
+  tool or a small serverless function.
+- The Corporate Profile download captures leads but is not true access control: on a static site the PDF sits at
+  a public address.
 
-## Running it
+## Where to change things
 
-No install, no build step. Open `index.html` directly in a browser, or
-use a local live-reload tool (e.g. VS Code's "Live Server" extension) for
-convenience while editing.
+| To change… | Edit |
+|---|---|
+| Service names, descriptions, bullet lists | `lib/services.js` |
+| Method step descriptions | `lib/method.js` |
+| Projects and industries | `lib/projects.js` |
+| Phone, email, address, domain, PDF path, success message | `lib/site.js` |
+| Colours, fonts, spacing, the modal and form styles | `app/globals.css` (colour tokens at the top) |
+| Logo mark | `components/Logo.js` and `app/icon.svg` |
+| Share-preview image | `public/images/og-image.jpg` (1200×630) |
+
+**Placeholders.** Copy that must come from the Corporate Profile is marked `[Placeholder — …]` on the page. In the
+`lib/` files it is a `null` value: replace `null` with real text and the placeholder disappears. Search the
+project for `Placeholder` to find every remaining spot.
+
+**Corporate Profile PDF.** Save it as `public/downloads/ThinkingHead-Corporate-Profile.pdf` (or change
+`PROFILE_PDF_PATH` in `lib/site.js`). Until the file exists, the download button leads to a 404.
+
+## Publishing an Insight
+
+1. Copy `content/insights/_template.md`, rename the copy (the file name becomes the web address,
+   e.g. `payroll-handovers.md` → `/insights/payroll-handovers`).
+2. Fill in the details at the top, write the article in Markdown, and set `draft: false`.
+3. Commit and deploy. The Insights link, list page, article page and sitemap entry all appear automatically.
+   With no published articles, the Insights link and page do not exist.
+
+## Deploying
+
+The site is statically generated, so it is fast and cheap to host. **Vercel** is the most direct route:
+
+1. Push the project to GitHub.
+2. In Vercel, import the repository (no settings to change).
+3. Add environment variables: `NEXT_PUBLIC_SITE_URL` (the real domain, no trailing slash) and
+   `NEXT_PUBLIC_FORM_ENDPOINT`. Do **not** set `NEXT_PUBLIC_FORM_DRY_RUN`.
+4. Add the domain in Vercel and point DNS at it.
+
+Security headers (HSTS, frame protection, a Content-Security-Policy) are set in `next.config.mjs`. The CSP allows
+inline scripts because Next.js uses a few; a stricter nonce-based policy is a possible later hardening.
+Analytics (GA4, Microsoft Clarity) load only if `NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_CLARITY_ID` are set.
+Cloudflare Pages needs an extra adapter for Next.js; check Cloudflare's current guide before choosing it.
 
 ## Brand
 
-| Token | Hex | Use |
-|---|---|---|
-| Teal | `#2E6B5C` | Headings, navigation, primary CTAs, logo |
-| Gold | `#D2AB67` | Taglines, secondary CTAs, outcome statements |
-| Cream | `#F5EDDA` | Page background |
-| Ink | `#2D2D2D` | Body text |
-
-Typefaces: **Playfair Display** (headings), **Inter** (body),
-**JetBrains Mono** (step numbers, labels, reference codes).
-
+Teal `#2E6B5C` (headings, nav, buttons) · Gold `#D2AB67` (borders and decoration only) · Dark gold `#7F5F18` (all gold-coloured text) · Cream `#F5EDDD` (background; also the text colour on teal buttons) · Ink `#2D2D2D` (body text).
+Fonts: Playfair Display (headings), Inter (body), JetBrains Mono (labels), all self-hosted in `app/fonts`.
 Tagline: *Improving Systems. Enabling Possibilities.*
