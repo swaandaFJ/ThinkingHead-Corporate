@@ -66,7 +66,7 @@ export default function Home() {
             {SERVICES.map((s) => (
               <div className="card fade-in" key={s.id}>
                 <h3>{s.name}</h3>
-                <p>{s.outcome}</p>
+                <p>{s.summary}</p>
                 <Link href={`/services#${s.id}`} className="card-link">
                   See more &rarr;
                 </Link>

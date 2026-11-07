@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 
@@ -12,6 +13,8 @@ const LEADERS = [
   {
     role: "Founder & CEO",
     name: "Ben Shekari",
+    // Square photo (at least 768x768) saved in public/images/leadership/. Add the same line for Ayo once his arrives.
+    photo: "/images/leadership/ben-shekari.webp",
     bio: "Ben brings almost a decade of frontier product and technology experience from Marco Focus Nigeria Limited — one of Northern Nigeria’s pioneering software development companies — where he led the design and delivery of enterprise systems across multiple sectors. At ThinkingHead he leads strategy, AI product direction, executive research and client engagement. His practice combines systems thinking, deep research and AI engineering — helping clients move from ambition to defensible, working systems. He leads client engagement personally, from first question to final handover.",
   },
   {
@@ -32,7 +35,13 @@ export default function LeadershipPage() {
       <section className="section">
         {LEADERS.map((l, i) => (
           <div className="leader fade-in" key={l.name} style={i > 0 ? { marginTop: "3.5rem" } : undefined}>
-            <div className="leader-photo">Photo placeholder &mdash; professional headshot to be taken</div>
+            {l.photo ? (
+              <div className="leader-photo has-image">
+                <Image src={l.photo} alt={`${l.name}, ${l.role}`} width={384} height={384} sizes="12rem" />
+              </div>
+            ) : (
+              <div className="leader-photo">Photo placeholder &mdash; professional headshot to be taken</div>
+            )}
             <div>
               <span className="leader-role">{l.role}</span>
               <h2>{l.name}</h2>

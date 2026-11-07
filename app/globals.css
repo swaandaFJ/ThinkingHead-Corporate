@@ -207,8 +207,14 @@ textarea:focus-visible {
 }
 
 .logo svg {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.8rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+/* Cream version of the logo for the dark teal footer */
+.logo-light {
+  --logo-outline: var(--cream);
 }
 
 .logo-word {
@@ -1233,4 +1239,148 @@ body:has(dialog[open]) {
 
 .footer .btn-primary:hover {
   background: #ffffff;
+}
+
+/* ==========================================================================
+   SERVICES — long-form pillar content
+   ========================================================================== */
+.toc {
+  max-width: var(--content-width);
+  width: calc(100% - 3rem);
+  margin: 0 auto;
+}
+
+.toc-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  margin-bottom: 0.75rem;
+}
+
+.toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem 2rem;
+}
+
+@media (min-width: 40em) {
+  .toc ol {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.toc a {
+  color: var(--teal);
+}
+
+.toc a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.toc a span {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gold-text);
+  margin-right: 0.5rem;
+}
+
+.pillar .pillar-promise {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--teal);
+  margin-top: 0.5rem;
+}
+
+.pillar .pillar-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  margin: 1.75rem 0 0;
+}
+
+.pillar .pillar-label + p {
+  margin-top: 0.5rem;
+}
+
+.pillar .deliverables {
+  list-style: disc;
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.pillar .deliverables li {
+  margin-top: 0.6rem;
+  line-height: 1.55;
+}
+
+.pillar-close {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-left: 3px solid var(--gold);
+}
+
+.pillar .steps {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: 0.5rem;
+  counter-reset: step;
+  font-size: 0.95rem;
+}
+
+.pillar .steps li {
+  counter-increment: step;
+  margin: 0;
+}
+
+.pillar .steps li::before {
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gold-text);
+  margin-right: 0.75rem;
+}
+
+.pillar-close .pillar-outcome {
+  margin-top: 1.25rem;
+}
+
+/* ==========================================================================
+   CONTACT — static location image + directions link
+   ========================================================================== */
+.map-embed img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.map-directions {
+  margin-top: 0.9rem;
+}
+
+
+/* Leadership photos: a supplied photo fills the same square frame the placeholder uses */
+.leader-photo.has-image {
+  padding: 0;
+  background: none;
+  overflow: hidden;
+}
+
+.leader-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }

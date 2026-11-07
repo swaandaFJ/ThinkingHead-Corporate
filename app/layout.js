@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Analytics from "@/components/Analytics";
+import LogoDefs from "@/components/LogoDefs";
 import { getAllInsights } from "@/lib/insights";
 import { CONTACT, NAV_LINKS, SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -48,7 +49,7 @@ const jsonLd = {
       name: "ThinkingHead Nigeria Limited",
       alternateName: SITE_NAME,
       url: SITE_URL,
-      logo: `${SITE_URL}/icon.svg`,
+      logo: `${SITE_URL}/images/logo.png`,
       email: CONTACT.email,
       telephone: CONTACT.phone,
       identifier: CONTACT.rc,
@@ -80,6 +81,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en-NG" className={`${playfair.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body>
+        <LogoDefs />
         <a className="skip-link" href="#main">
           Skip to main content
         </a>

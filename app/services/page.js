@@ -23,6 +23,19 @@ export default function ServicesPage() {
         </p>
       </section>
 
+      <nav className="toc" aria-label="The eight services">
+        <p className="toc-title">The eight services</p>
+        <ol>
+          {SERVICES.map((s, i) => (
+            <li key={s.id}>
+              <a href={`#${s.id}`}>
+                <span>{String(i + 1).padStart(2, "0")}</span> {s.name}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
       <section className="section">
         <ServicesList services={SERVICES} />
       </section>

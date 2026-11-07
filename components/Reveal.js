@@ -29,7 +29,7 @@ export default function Reveal() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" }
     );
 
     // Anything already on screen is shown straight away, so nothing flashes hidden

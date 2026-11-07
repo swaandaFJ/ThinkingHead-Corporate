@@ -10,7 +10,7 @@ const csp = [
   "img-src 'self' data: https://www.google-analytics.com https://*.clarity.ms https://c.bing.com",
   "font-src 'self'",
   "connect-src 'self' https://formspree.io https://www.google-analytics.com https://*.analytics.google.com https://*.clarity.ms",
-  "frame-src https://www.google.com",
+  "frame-src 'none'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self' https://formspree.io",

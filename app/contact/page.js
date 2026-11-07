@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
 import { pageMetadata } from "@/lib/seo";
 import { CONTACT } from "@/lib/site";
@@ -62,13 +63,17 @@ export default function ContactPage() {
               ))}
             </div>
             <div className="map-embed">
-              <iframe
-                title="ThinkingHead office location"
-                src="https://www.google.com/maps?q=5+Pipeline+Road,+Bayan+Dutse,+Kaduna,+Nigeria&output=embed"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+              <Image
+                src="/images/office-location.png"
+                alt="Location card showing the ThinkingHead office at 5 Pipeline Road, Bayan Dutse, Kaduna"
+                width={1200}
+                height={600}
+                sizes="(min-width: 56em) 24rem, 100vw"
               />
             </div>
+            <a className="btn btn-secondary map-directions" href={CONTACT.directionsUrl} target="_blank" rel="noopener noreferrer">
+              Get directions &rarr;
+            </a>
           </aside>
         </div>
       </section>

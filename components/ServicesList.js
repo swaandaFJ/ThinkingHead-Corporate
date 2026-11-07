@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Modal from "@/components/Modal";
 import LeadForm from "@/components/LeadForm";
-import Placeholder from "@/components/Placeholder";
+import RichText from "@/components/RichText";
 
 // Same fields for all eight services. Wider screens show them two per row.
 const ENQUIRY_FIELDS = [
@@ -22,39 +22,54 @@ export default function ServicesList({ services }) {
   return (
     <>
       {services.map((s, i) => (
-        <div className="pillar fade-in" id={s.id} key={s.id}>
+        <article className="pillar fade-in" id={s.id} key={s.id}>
           <span className="pillar-number">{String(i + 1).padStart(2, "0")}</span>
           <h2>{s.name}</h2>
+          <p className="pillar-promise">{s.promise}</p>
 
-          {s.description ? (
-            <p>{s.description}</p>
-          ) : (
-            <Placeholder>full description paragraph from Corporate Profile, pp.10–11</Placeholder>
-          )}
+          <h3 className="pillar-label">The problem</h3>
+          <p>
+            <RichText text={s.problem} />
+          </p>
 
-          {s.bullets ? (
-            <ul>
-              {s.bullets.map((b) => (
-                <li key={b}>{b}</li>
+          <h3 className="pillar-label">How ThinkingHead solves it</h3>
+          <p>
+            <RichText text={s.solution} />
+          </p>
+
+          <h3 className="pillar-label">What we deliver</h3>
+          <ul className="deliverables">
+            {s.deliverables.map((d) => (
+              <li key={d.title}>
+                <strong>{d.title}:</strong> {d.text}
+              </li>
+            ))}
+          </ul>
+
+          <div className="pillar-close">
+            <h3 className="pillar-label" style={{ marginTop: 0 }}>
+              How we work
+            </h3>
+            <ol className="steps">
+              {s.steps.map((step) => (
+                <li key={step}>{step}</li>
               ))}
-            </ul>
-          ) : (
-            <ul>
-              <li className="placeholder-note">[Placeholder — sub-service bullet list from Corporate Profile]</li>
-            </ul>
-          )}
-
-          <span className="pillar-outcome">You get: {s.outcome}</span>
-
-          <div className="pillar-actions">
-            <button type="button" className="btn btn-primary" onClick={() => {
-                setSent(false);
-                setActive(s);
-              }}>
-              Ask about this service
-            </button>
+            </ol>
+            <span className="pillar-outcome">You get: {s.outcome}</span>
+            <div className="pillar-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  setSent(false);
+                  setActive(s);
+                }}
+              >
+                Ask about this service
+              </button>
+            </div>
           </div>
-        </div>
+        </article>
       ))}
 
       <Modal open={active !== null} onClose={() => setActive(null)} titleId="enquiry-title">

@@ -21,7 +21,7 @@ built to be light and fast.
 | **Method** `/method` | The eight-step delivery method, Discover to Scale. |
 | **Work** `/work` | Signature projects and industries served. |
 | **Leadership** `/leadership` | The two founders. |
-| **Let's Talk** `/contact` | Contact details, map and the discovery-conversation form. |
+| **Let's Talk** `/contact` | Contact details, a location image with a "Get directions" link, and the discovery-conversation form. |
 | **Insights** `/insights` | Research, frameworks and perspectives (Markdown articles). Hidden until at least one article is published. |
 | **Corporate Profile** | The footer's "Download Corporate Profile" opens a short form (name, email, organisation), then offers the PDF. |
 
@@ -72,17 +72,17 @@ To switch form service later (or to a small serverless function), edit only `lib
 
 | To change… | Edit |
 |---|---|
-| Service names, descriptions, bullet lists | `lib/services.js` |
+| Everything written about the eight services (promise, problem, solution, deliverables, steps) | `lib/services.js` |
 | Method step descriptions | `lib/method.js` |
 | Projects and industries | `lib/projects.js` |
 | Phone, email, address, domain, PDF path, success message | `lib/site.js` |
 | Colours, fonts, spacing, the modal and form styles | `app/globals.css` (colour tokens at the top) |
-| Logo mark | `components/Logo.js` and `app/icon.svg` |
-| Share-preview image | `public/images/og-image.jpg` (1200×630) |
+| The logo | `public/images/logo.svg` (the master file) and `lib/logoPaths.js` (the copy drawn in the header and footer). Browser-tab and phone icons: `app/icon.svg`, `app/apple-icon.png`. Logo for search engines: `public/images/logo.png`. If the logo ever changes, all of these need regenerating together. |
+| Leadership photos | `public/images/leadership/`, plus the `photo` line for each person in `app/leadership/page.js`. Square, at least 768×768 pixels, WebP or JPG. Until a photo is added, a labelled placeholder box shows. |
+| Share-preview image (the picture shown when a link is pasted into WhatsApp or LinkedIn) | `public/images/og-image.jpg` (1200×630). It currently shows the logo, name and tagline. |
+| Location picture on the Contact page | `public/images/office-location.png` (1200×600). It is an illustrated card, not a real map; to use a real map screenshot, save it under the same name. The "Get directions" link is set in `lib/site.js`. |
 
-**Placeholders.** Copy that must come from the Corporate Profile is marked `[Placeholder — …]` on the page. In the
-`lib/` files it is a `null` value: replace `null` with real text and the placeholder disappears. Search the
-project for `Placeholder` to find every remaining spot.
+**Placeholders.** The Services copy is complete (loaded from Ben's Services Section Copy). Copy still waiting on the Corporate Profile is marked `[Placeholder — …]` on the page: the Method steps, the Work projects and industries, and the About differentiators. In `lib/method.js`, `lib/projects.js` and `app/about/page.js` the missing text is a `null` value or absent: add the real text and the placeholder disappears. Search the project for `Placeholder` to find every remaining spot.
 
 **Corporate Profile PDF.** Save it as `public/downloads/ThinkingHead-Corporate-Profile.pdf` (or change
 `PROFILE_PDF_PATH` in `lib/site.js`). Until the file exists, the download button leads to a 404.
